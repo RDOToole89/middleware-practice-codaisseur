@@ -9,12 +9,17 @@ const loggingMiddleWare = (req, res, next) => {
   console.log(`Request made on: ${date}`);
 
   res.setHeader("X-Codaisseur-Time", date);
+  next();
 };
 
 app.use(loggingMiddleWare);
 
 app.get("/", (req, res, next) => {
   res.send("Hello World!");
+});
+
+app.get("/foo", (req, res, next) => {
+  res.send("Foo");
 });
 
 const PORT = 4000;
