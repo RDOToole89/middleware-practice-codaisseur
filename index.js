@@ -12,7 +12,18 @@ const loggingMiddleWare = (req, res, next) => {
   next();
 };
 
+const failRandomlyMiddleWare = (req, res, next) => {
+  const chance = Math.round(Math.random());
+
+  if (chance === 0) {
+    next();
+  } else {
+    res.status(500).send("You got powned!");
+  }
+};
+
 app.use(loggingMiddleWare);
+app.use(failRandomlyMiddleWare);
 
 app.get("/", (req, res, next) => {
   res.send("Hello World!");
